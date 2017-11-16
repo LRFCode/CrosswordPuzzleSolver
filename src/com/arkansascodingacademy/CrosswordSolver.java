@@ -1,6 +1,8 @@
 package com.arkansascodingacademy;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CrosswordSolver implements Cloneable
@@ -24,6 +26,17 @@ public class CrosswordSolver implements Cloneable
         vWord2Candidates = vWordSet;
         vWord3Candidates = vWordSet;
         vWord4Candidates = vWordSet;
+    }
+
+    List<Set<String>> getVWordCandidates()
+    {
+        List list = new ArrayList();
+
+        list.add(vWord2Candidates);
+        list.add(vWord3Candidates);
+        list.add(vWord4Candidates);
+
+        return list;
     }
 
     private CrosswordSolver()
