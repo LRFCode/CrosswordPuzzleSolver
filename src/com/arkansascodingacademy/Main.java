@@ -135,6 +135,39 @@ public class Main
         return hWordPossibilities;
     }
 
+    private static void refineWords(Map<Integer, Set<String>> map, List<Set<String>> vWordCandidates, int index, String vWords, String...candidateHWords)
+    {
+        for (String candidateVWord : vWordCandidates.get(index))
+        {
+            String searchVWord = searchWord(1, candidateHWords);
+
+            if (candidateVWord.substring(0, candidateHWords.length).equals(searchVWord))
+            {
+                if (index < vWordCandidates.size() - 1)
+                {
+                    if (vWords.length() > 0)
+                    {
+                        vWords += ",";
+                    }
+
+                    vWords += candidateVWord;
+                    System.out.println(vWords);
+                    refineWords(map, vWordCandidates, index + 1, vWords);
+                }
+                else
+                {
+                    String words[] = vWords.split(",");
+
+                    System.out.println(words.length);
+                    for (int i = 0; i < vWordCandidates.size(); i++)
+                    {
+                        map.get(i).add(words[i]);
+                    }
+                }
+            }
+        }
+    }
+
     private static Map<Integer, Set<String>> wordPossibilitiesRefined(CrosswordSolver crosswordSolver, String...candidateHWords)
     {
         List<Set<String>> vWordCandidates = crosswordSolver.getVWordCandidates();
@@ -147,6 +180,7 @@ public class Main
             map.put(i, vWordPossibles);
         }
 
+        //refineWords(map, vWordCandidates, 0, "", candidateHWords);
         for (String candidateVWord2 : vWordCandidates.get(0))
         {
             String searchVWord2 = searchWord(1, candidateHWords);
