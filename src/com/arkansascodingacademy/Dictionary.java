@@ -13,7 +13,6 @@ public class Dictionary
         try
         {
             List<String> words = Files.readAllLines(filePath);
-            System.out.println(words.size() + " words in file");
 
             for (String word : words)
             {
@@ -45,6 +44,11 @@ public class Dictionary
     public Set<String> getWordSet(int wordLength)
     {
         return wordMap.get(wordLength);
+    }
+
+    public List<String> getWordList(int wordLength)
+    {
+        return new ArrayList<String>(wordMap.get(wordLength));
     }
 
     public boolean wordExists(String word)
