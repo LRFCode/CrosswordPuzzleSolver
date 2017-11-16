@@ -14,7 +14,7 @@ public class CrosswordSolver implements Cloneable
     private Set<String> vWord3Candidates = new HashSet<>();
     private Set<String> vWord4Candidates = new HashSet<>();
 
-    public CrosswordSolver(Set<String> hWordSet, Set<String> vWordSet)
+    CrosswordSolver(Set<String> hWordSet, Set<String> vWordSet)
     {
         hWord1Candidates = hWordSet;
         hWord2Candidates = hWordSet;
@@ -30,102 +30,110 @@ public class CrosswordSolver implements Cloneable
     {
     }
 
-    public Set<String> gethWord1Candidates()
-    {
-        return hWord1Candidates;
-    }
-
-    public void sethWord1Candidates(Set<String> hWord1Candidates)
+    private void sethWord1Candidates(Set<String> hWord1Candidates)
     {
         this.hWord1Candidates = hWord1Candidates;
     }
 
-    public Set<String> gethWord2Candidates()
+    Set<String> gethWord1Candidates()
+    {
+        return hWord1Candidates;
+    }
+
+    Set<String> gethWord2Candidates()
     {
         return hWord2Candidates;
     }
 
-    public void sethWord2Candidates(Set<String> hWord2Candidates)
+    void sethWord2Candidates(Set<String> hWord2Candidates)
     {
         this.hWord2Candidates = hWord2Candidates;
     }
 
-    public Set<String> gethWord3Candidates()
+    Set<String> gethWord3Candidates()
     {
         return hWord3Candidates;
     }
 
-    public void sethWord3Candidates(Set<String> hWord3Candidates)
+    void sethWord3Candidates(Set<String> hWord3Candidates)
     {
         this.hWord3Candidates = hWord3Candidates;
     }
 
-    public Set<String> gethWord4Candidates()
+    Set<String> gethWord4Candidates()
     {
         return hWord4Candidates;
     }
 
-    public void sethWord4Candidates(Set<String> hWord4Candidates)
+    void sethWord4Candidates(Set<String> hWord4Candidates)
     {
         this.hWord4Candidates = hWord4Candidates;
     }
 
-    public Set<String> getvWord1Candidates()
+    private Set<String> getvWord1Candidates()
     {
         return vWord1Candidates;
     }
 
-    public void setvWord1Candidates(Set<String> vWord1Candidates)
+    void setvWord1Candidates(Set<String> vWord1Candidates)
     {
         this.vWord1Candidates = vWord1Candidates;
     }
 
-    public Set<String> getvWord2Candidates()
+    Set<String> getvWord2Candidates()
     {
         return vWord2Candidates;
     }
 
-    public void setvWord2Candidates(Set<String> vWord2Candidates)
+    void setvWord2Candidates(Set<String> vWord2Candidates)
     {
         this.vWord2Candidates = vWord2Candidates;
     }
 
-    public Set<String> getvWord3Candidates()
+    Set<String> getvWord3Candidates()
     {
         return vWord3Candidates;
     }
 
-    public void setvWord3Candidates(Set<String> vWord3Candidates)
+    void setvWord3Candidates(Set<String> vWord3Candidates)
     {
         this.vWord3Candidates = vWord3Candidates;
     }
 
-    public Set<String> getvWord4Candidates()
+    Set<String> getvWord4Candidates()
     {
         return vWord4Candidates;
     }
 
-    public void setvWord4Candidates(Set<String> vWord4Candidates)
+    void setvWord4Candidates(Set<String> vWord4Candidates)
     {
         this.vWord4Candidates = vWord4Candidates;
     }
 
     public CrosswordSolver clone()
     {
+        try
+        {
+            super.clone();
+        }
+        catch(Exception e)
+        {
+            //do nothing
+        }
         CrosswordSolver crosswordSolver = new CrosswordSolver();
-        crosswordSolver.sethWord1Candidates(new HashSet(hWord1Candidates));
-        crosswordSolver.sethWord2Candidates(new HashSet(hWord2Candidates));
-        crosswordSolver.sethWord3Candidates(new HashSet(hWord3Candidates));
-        crosswordSolver.sethWord4Candidates(new HashSet(hWord4Candidates));
-        crosswordSolver.setvWord1Candidates(new HashSet(vWord1Candidates));
-        crosswordSolver.setvWord2Candidates(new HashSet(vWord2Candidates));
-        crosswordSolver.setvWord3Candidates(new HashSet(vWord3Candidates));
-        crosswordSolver.setvWord4Candidates(new HashSet(vWord4Candidates));
+        crosswordSolver.sethWord1Candidates(new HashSet<>(hWord1Candidates));
+        crosswordSolver.sethWord2Candidates(new HashSet<>(hWord2Candidates));
+        crosswordSolver.sethWord3Candidates(new HashSet<>(hWord3Candidates));
+        crosswordSolver.sethWord4Candidates(new HashSet<>(hWord4Candidates));
+        crosswordSolver.setvWord1Candidates(new HashSet<>(vWord1Candidates));
+        crosswordSolver.setvWord2Candidates(new HashSet<>(vWord2Candidates));
+        crosswordSolver.setvWord3Candidates(new HashSet<>(vWord3Candidates));
+        crosswordSolver.setvWord4Candidates(new HashSet<>(vWord4Candidates));
 
         return crosswordSolver;
     }
 
-    public boolean possibleSolution()
+    boolean possibleSolution()
     {
         return
                gethWord2Candidates().size() > 0 &&
@@ -137,7 +145,7 @@ public class CrosswordSolver implements Cloneable
                getvWord4Candidates().size() > 0;
     }
 
-    public boolean isSolution()
+    boolean isSolution()
     {
         return
                         getvWord2Candidates().size() == 1 &&

@@ -8,7 +8,7 @@ public class Dictionary
 {
     private Map<Integer, Set<String>> wordMap = new HashMap<>();
 
-    public Dictionary(Path filePath)
+    Dictionary(Path filePath)
     {
         try
         {
@@ -41,30 +41,20 @@ public class Dictionary
 
     }
 
-    public Set<String> getWordSet(int wordLength)
+    Set<String> getWordSet(int wordLength)
     {
         return wordMap.get(wordLength);
     }
 
-    public List<String> getWordList(int wordLength)
-    {
-        return new ArrayList<String>(wordMap.get(wordLength));
-    }
-
-    public boolean wordExists(String word)
-    {
-        return getWordSet(word.length()).contains(word.toUpperCase());
-    }
-
     public String toString()
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (Integer wordLength : wordMap.keySet())
         {
             Set<String> wordSet = wordMap.get(wordLength);
 
-            sb.append(wordSet.size() + " words of length " + wordLength + "\n");
+            sb.append(wordSet.size()).append(" words of length ").append(wordLength).append("\n");
         }
 
         return sb.toString();

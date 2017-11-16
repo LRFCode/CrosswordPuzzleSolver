@@ -1,7 +1,6 @@
 package com.arkansascodingacademy;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -22,7 +21,7 @@ public class Main
 
         CrosswordSolver crosswordSolver = new CrosswordSolver(hWordSet, vWordSet);
 
-        List<String> hWord1Candidates = new ArrayList<String>(crosswordSolver.gethWord1Candidates());
+        List<String> hWord1Candidates = new ArrayList<>(crosswordSolver.gethWord1Candidates());
 
         //for (String candidateHWord1 : hWord1Candidates)
         {
@@ -52,7 +51,7 @@ public class Main
                             //System.out.println("candidateHWord2:" + candidateHWord2);
                             CrosswordSolver crosswordSolverCandidateHWord2 = crosswordSolverCandidateVWord1.clone();
 
-                            Map<Integer, Set<String>> vWordPossiblesRefined1 = wordPossibilitiesRefined1(crosswordSolverCandidateHWord2, candidateHWord1, candidateHWord2);
+                            Map<Integer, Set<String>> vWordPossiblesRefined1 = wordPossibilitiesRefined(crosswordSolverCandidateHWord2, candidateHWord1, candidateHWord2);
 
                             crosswordSolverCandidateHWord2.setvWord2Candidates(vWordPossiblesRefined1.get(0));
                             crosswordSolverCandidateHWord2.setvWord3Candidates(vWordPossiblesRefined1.get(1));
@@ -65,7 +64,7 @@ public class Main
                                     //String candidateHWord3 = "WAGE";
                                     CrosswordSolver crosswordSolverCandidateHWord3 = crosswordSolverCandidateHWord2.clone();
 
-                                    Map<Integer, Set<String>> vWordPossiblesRefined2 = wordPossibilitiesRefined2(crosswordSolverCandidateHWord3, candidateHWord1, candidateHWord2, candidateHWord3);
+                                    Map<Integer, Set<String>> vWordPossiblesRefined2 = wordPossibilitiesRefined(crosswordSolverCandidateHWord3, candidateHWord1, candidateHWord2, candidateHWord3);
 
                                     crosswordSolverCandidateHWord3.setvWord2Candidates(vWordPossiblesRefined2.get(0));
                                     crosswordSolverCandidateHWord3.setvWord3Candidates(vWordPossiblesRefined2.get(1));
@@ -78,7 +77,7 @@ public class Main
                                             //String candidateHWord4 = "SNAP";
                                             CrosswordSolver crosswordSolverCandidateHWord4 = crosswordSolverCandidateHWord3.clone();
 
-                                            Map<Integer, Set<String>> vWordPossiblesRefined3 = wordPossibilitiesRefined3(crosswordSolverCandidateHWord4, candidateHWord1, candidateHWord2, candidateHWord3, candidateHWord4);
+                                            Map<Integer, Set<String>> vWordPossiblesRefined3 = wordPossibilitiesRefined(crosswordSolverCandidateHWord4, candidateHWord1, candidateHWord2, candidateHWord3, candidateHWord4);
 
                                             crosswordSolverCandidateHWord4.setvWord2Candidates(vWordPossiblesRefined3.get(0));
                                             crosswordSolverCandidateHWord4.setvWord3Candidates(vWordPossiblesRefined3.get(1));
@@ -136,7 +135,7 @@ public class Main
         return hWordPossibilities;
     }
 
-    private static Map<Integer, Set<String>> wordPossibilitiesRefined1(CrosswordSolver crosswordSolver, String candidateHWord1, String candidateHWord2)
+    private static Map<Integer, Set<String>> wordPossibilitiesRefined(CrosswordSolver crosswordSolver, String...candidateHWords)
     {
         Set<String> vWord2Possibles = new HashSet<>();
         Set<String> vWord3Possibles = new HashSet<>();
@@ -144,21 +143,33 @@ public class Main
 
         for (String candidateVWord2 : crosswordSolver.getvWord2Candidates())
         {
-            String searchVWord2 = candidateHWord1.substring(1, 2) + candidateHWord2.substring(1, 2);
+            StringBuilder searchVWord2 = new StringBuilder();
+            for (String candidateHWord : candidateHWords)
+            {
+                searchVWord2.append(candidateHWord.substring(1,2));
+            }
 
-            if (candidateVWord2.substring(0, 2).equals(searchVWord2))
+            if (candidateVWord2.substring(0, candidateHWords.length).equals(searchVWord2.toString()))
             {
                 for (String candidateVWord3 : crosswordSolver.getvWord3Candidates())
                 {
-                    String searchVWord3 = candidateHWord1.substring(2, 3) + candidateHWord2.substring(2, 3);
+                    StringBuilder searchVWord3 = new StringBuilder();
+                    for (String candidateHWord : candidateHWords)
+                    {
+                        searchVWord3.append(candidateHWord.substring(2,3));
+                    }
 
-                    if (candidateVWord3.substring(0, 2).equals(searchVWord3))
+                    if (candidateVWord3.substring(0, candidateHWords.length).equals(searchVWord3.toString()))
                     {
                         for (String candidateVWord4 : crosswordSolver.getvWord4Candidates())
                         {
-                            String searchVWord4 = candidateHWord1.substring(3, 4) + candidateHWord2.substring(3, 4);
+                            StringBuilder searchVWord4 = new StringBuilder();
+                            for (String candidateHWord : candidateHWords)
+                            {
+                                searchVWord4.append(candidateHWord.substring(3,4));
+                            }
 
-                            if (candidateVWord4.substring(0, 2).equals(searchVWord4))
+                            if (candidateVWord4.substring(0, candidateHWords.length).equals(searchVWord4.toString()))
                             {
                                 vWord2Possibles.add(candidateVWord2);
                                 vWord3Possibles.add(candidateVWord3);
@@ -179,89 +190,4 @@ public class Main
         return map;
     }
 
-    private static Map<Integer, Set<String>> wordPossibilitiesRefined2(CrosswordSolver crosswordSolver, String candidateHWord1, String candidateHWord2, String candidateHWord3)
-    {
-        Set<String> vWord2Possibles = new HashSet<>();
-        Set<String> vWord3Possibles = new HashSet<>();
-        Set<String> vWord4Possibles = new HashSet<>();
-
-        for (String candidateVWord2 : crosswordSolver.getvWord2Candidates())
-        {
-            String searchVWord2 = candidateHWord1.substring(1, 2) + candidateHWord2.substring(1, 2) + candidateHWord3.substring(1, 2);
-
-            if (candidateVWord2.substring(0, 3).equals(searchVWord2))
-            {
-                for (String candidateVWord3 : crosswordSolver.getvWord3Candidates())
-                {
-                    String searchVWord3 = candidateHWord1.substring(2, 3) + candidateHWord2.substring(2, 3) + candidateHWord3.substring(2, 3);
-
-                    if (candidateVWord3.substring(0, 3).equals(searchVWord3))
-                    {
-                        for (String candidateVWord4 : crosswordSolver.getvWord4Candidates())
-                        {
-                            String searchVWord4 = candidateHWord1.substring(3, 4) + candidateHWord2.substring(3, 4) + candidateHWord3.substring(3, 4);
-
-                            if (candidateVWord4.substring(0, 3).equals(searchVWord4))
-                            {
-                                vWord2Possibles.add(candidateVWord2);
-                                vWord3Possibles.add(candidateVWord3);
-                                vWord4Possibles.add(candidateVWord4);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        Map<Integer, Set<String>> map = new HashMap<>();
-
-        map.put(0, vWord2Possibles);
-        map.put(1, vWord3Possibles);
-        map.put(2, vWord4Possibles);
-
-        return map;
-    }
-
-    private static Map<Integer, Set<String>> wordPossibilitiesRefined3(CrosswordSolver crosswordSolver, String candidateHWord1, String candidateHWord2, String candidateHWord3, String candidateHWord4)
-    {
-        Set<String> vWord2Possibles = new HashSet<>();
-        Set<String> vWord3Possibles = new HashSet<>();
-        Set<String> vWord4Possibles = new HashSet<>();
-
-        for (String candidateVWord2 : crosswordSolver.getvWord2Candidates())
-        {
-            String searchVWord2 = candidateHWord1.substring(1, 2) + candidateHWord2.substring(1, 2) + candidateHWord3.substring(1, 2) + candidateHWord4.substring(1, 2);
-
-            if (candidateVWord2.substring(0, 4).equals(searchVWord2))
-            {
-                for (String candidateVWord3 : crosswordSolver.getvWord3Candidates())
-                {
-                    String searchVWord3 = candidateHWord1.substring(2, 3) + candidateHWord2.substring(2, 3) + candidateHWord3.substring(2, 3) + candidateHWord4.substring(2, 3);
-
-                    if (candidateVWord3.substring(0, 4).equals(searchVWord3))
-                    {
-                        for (String candidateVWord4 : crosswordSolver.getvWord4Candidates())
-                        {
-                            String searchVWord4 = candidateHWord1.substring(3, 4) + candidateHWord2.substring(3, 4) + candidateHWord3.substring(3, 4) + candidateHWord4.substring(3, 4);
-
-                            if (candidateVWord4.substring(0, 4).equals(searchVWord4))
-                            {
-                                vWord2Possibles.add(candidateVWord2);
-                                vWord3Possibles.add(candidateVWord3);
-                                vWord4Possibles.add(candidateVWord4);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        Map<Integer, Set<String>> map = new HashMap<>();
-
-        map.put(0, vWord2Possibles);
-        map.put(1, vWord3Possibles);
-        map.put(2, vWord4Possibles);
-
-        return map;
-    }
 }
