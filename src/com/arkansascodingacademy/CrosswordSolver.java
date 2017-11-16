@@ -3,7 +3,7 @@ package com.arkansascodingacademy;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CrosswordSolver
+public class CrosswordSolver implements Cloneable
 {
     private Set<String> hWord1Candidates = new HashSet<>();
     private Set<String> hWord2Candidates = new HashSet<>();
@@ -24,6 +24,10 @@ public class CrosswordSolver
         vWord2Candidates = vWordSet;
         vWord3Candidates = vWordSet;
         vWord4Candidates = vWordSet;
+    }
+
+    private CrosswordSolver()
+    {
     }
 
     public Set<String> gethWord1Candidates()
@@ -105,4 +109,40 @@ public class CrosswordSolver
     {
         this.vWord4Candidates = vWord4Candidates;
     }
+
+    public CrosswordSolver clone()
+    {
+        CrosswordSolver crosswordSolver = new CrosswordSolver();
+        crosswordSolver.sethWord1Candidates(new HashSet(hWord1Candidates));
+        crosswordSolver.sethWord2Candidates(new HashSet(hWord2Candidates));
+        crosswordSolver.sethWord3Candidates(new HashSet(hWord3Candidates));
+        crosswordSolver.sethWord4Candidates(new HashSet(hWord4Candidates));
+        crosswordSolver.setvWord1Candidates(new HashSet(vWord1Candidates));
+        crosswordSolver.setvWord2Candidates(new HashSet(vWord2Candidates));
+        crosswordSolver.setvWord3Candidates(new HashSet(vWord3Candidates));
+        crosswordSolver.setvWord4Candidates(new HashSet(vWord4Candidates));
+
+        return crosswordSolver;
+    }
+
+    public boolean possibleSolution()
+    {
+        return
+               gethWord2Candidates().size() > 0 &&
+               gethWord3Candidates().size() > 0 &&
+               gethWord4Candidates().size() > 0 &&
+               getvWord1Candidates().size() > 0 &&
+               getvWord2Candidates().size() > 0 &&
+               getvWord3Candidates().size() > 0 &&
+               getvWord4Candidates().size() > 0;
+    }
+
+    public boolean isSolution()
+    {
+        return
+                        getvWord2Candidates().size() == 1 &&
+                        getvWord3Candidates().size() == 1 &&
+                        getvWord4Candidates().size() == 1;
+    }
+
 }

@@ -15,6 +15,7 @@ public class Main
 
         int hLength = 4;
         int vLength = 4;
+        int successCount = 0;
 
         Set<String> hWordSet = dictionary.getWordSet(hLength);
         Set<String> vWordSet = dictionary.getWordSet(vLength);
@@ -23,56 +24,71 @@ public class Main
 
         List<String> hWord1Candidates = new ArrayList<String>(crosswordSolver.gethWord1Candidates());
 
-        for (String candidateHWord1 : hWord1Candidates)
+        //for (String candidateHWord1 : hWord1Candidates)
         {
+            String candidateHWord1 = "DIGS";
             crosswordSolver.setvWord1Candidates(vWordPossibilities(hWord1Candidates, candidateHWord1, 0));
             crosswordSolver.setvWord2Candidates(vWordPossibilities(hWord1Candidates, candidateHWord1, 1));
             crosswordSolver.setvWord3Candidates(vWordPossibilities(hWord1Candidates, candidateHWord1, 2));
             crosswordSolver.setvWord4Candidates(vWordPossibilities(hWord1Candidates, candidateHWord1, 3));
 
-            if (crosswordSolver.getvWord1Candidates().size() > 0 && crosswordSolver.getvWord2Candidates().size() > 0 && crosswordSolver.getvWord3Candidates().size() > 0 && crosswordSolver.getvWord4Candidates().size() > 0)
+            if (crosswordSolver.possibleSolution())
             {
-                for (String candidateVWord1 : crosswordSolver.getvWord1Candidates())
+                //for (String candidateVWord1 : crosswordSolver.getvWord1Candidates())
                 {
-                    crosswordSolver.sethWord2Candidates(hWordPossibilities(hWord1Candidates, candidateVWord1, 1));
-                    crosswordSolver.sethWord3Candidates(hWordPossibilities(hWord1Candidates, candidateVWord1, 2));
-                    crosswordSolver.sethWord4Candidates(hWordPossibilities(hWord1Candidates, candidateVWord1, 3));
+                    String candidateVWord1 = "DEWS";
+                    CrosswordSolver crosswordSolverCandidateVWord1 = crosswordSolver.clone();
 
-                    if (crosswordSolver.gethWord2Candidates().size() > 0 && crosswordSolver.gethWord3Candidates().size() > 0 && crosswordSolver.gethWord4Candidates().size() > 0)
+                    crosswordSolverCandidateVWord1.sethWord2Candidates(hWordPossibilities(hWord1Candidates, candidateVWord1, 1));
+                    crosswordSolverCandidateVWord1.sethWord3Candidates(hWordPossibilities(hWord1Candidates, candidateVWord1, 2));
+                    crosswordSolverCandidateVWord1.sethWord4Candidates(hWordPossibilities(hWord1Candidates, candidateVWord1, 3));
+
+                    if (crosswordSolverCandidateVWord1.possibleSolution())
                     {
-                        for (String candidateHWord2 : crosswordSolver.gethWord2Candidates())
+                        //System.out.println("candidateHWord2 possibilities:" + crosswordSolverCandidateVWord1.gethWord2Candidates().size());
+                        for (String candidateHWord2 : crosswordSolverCandidateVWord1.gethWord2Candidates())
                         {
-                            Map<Integer, Set<String>> vWordPossiblesRefined1 = wordPossibilitiesRefined1(crosswordSolver, candidateHWord1, candidateHWord2);
+                            //String candidateHWord2 = "ERAT";
+                            //System.out.println("candidateHWord2:" + candidateHWord2);
+                            CrosswordSolver crosswordSolverCandidateHWord2 = crosswordSolverCandidateVWord1.clone();
 
-                            crosswordSolver.setvWord2Candidates(vWordPossiblesRefined1.get(0));
-                            crosswordSolver.setvWord3Candidates(vWordPossiblesRefined1.get(1));
-                            crosswordSolver.setvWord4Candidates(vWordPossiblesRefined1.get(2));
+                            Map<Integer, Set<String>> vWordPossiblesRefined1 = wordPossibilitiesRefined1(crosswordSolverCandidateHWord2, candidateHWord1, candidateHWord2);
 
-                            if (crosswordSolver.getvWord2Candidates().size() > 0 && crosswordSolver.getvWord3Candidates().size() > 0 && crosswordSolver.getvWord4Candidates().size() > 0)
+                            crosswordSolverCandidateHWord2.setvWord2Candidates(vWordPossiblesRefined1.get(0));
+                            crosswordSolverCandidateHWord2.setvWord3Candidates(vWordPossiblesRefined1.get(1));
+                            crosswordSolverCandidateHWord2.setvWord4Candidates(vWordPossiblesRefined1.get(2));
+
+                            if (crosswordSolverCandidateHWord2.possibleSolution())
                             {
-                                for (String candidateHWord3 : crosswordSolver.gethWord3Candidates())
+                                for (String candidateHWord3 : crosswordSolverCandidateHWord2.gethWord3Candidates())
                                 {
-                                    Map<Integer, Set<String>> vWordPossiblesRefined2 = wordPossibilitiesRefined2(crosswordSolver, candidateHWord1, candidateHWord2, candidateHWord3);
+                                    //String candidateHWord3 = "WAGE";
+                                    CrosswordSolver crosswordSolverCandidateHWord3 = crosswordSolverCandidateHWord2.clone();
 
-                                    crosswordSolver.setvWord2Candidates(vWordPossiblesRefined2.get(0));
-                                    crosswordSolver.setvWord3Candidates(vWordPossiblesRefined2.get(1));
-                                    crosswordSolver.setvWord4Candidates(vWordPossiblesRefined2.get(2));
+                                    Map<Integer, Set<String>> vWordPossiblesRefined2 = wordPossibilitiesRefined2(crosswordSolverCandidateHWord3, candidateHWord1, candidateHWord2, candidateHWord3);
 
-                                    if (crosswordSolver.getvWord2Candidates().size() > 0 && crosswordSolver.getvWord3Candidates().size() > 0 && crosswordSolver.getvWord4Candidates().size() > 0)
+                                    crosswordSolverCandidateHWord3.setvWord2Candidates(vWordPossiblesRefined2.get(0));
+                                    crosswordSolverCandidateHWord3.setvWord3Candidates(vWordPossiblesRefined2.get(1));
+                                    crosswordSolverCandidateHWord3.setvWord4Candidates(vWordPossiblesRefined2.get(2));
+
+                                    if (crosswordSolverCandidateHWord3.possibleSolution())
                                     {
-                                        for (String candidateHWord4 : crosswordSolver.gethWord4Candidates())
+                                        for (String candidateHWord4 : crosswordSolverCandidateHWord3.gethWord4Candidates())
                                         {
-                                            Map<Integer, Set<String>> vWordPossiblesRefined3 = wordPossibilitiesRefined3(crosswordSolver, candidateHWord1, candidateHWord2, candidateHWord3, candidateHWord4);
+                                            //String candidateHWord4 = "SNAP";
+                                            CrosswordSolver crosswordSolverCandidateHWord4 = crosswordSolverCandidateHWord3.clone();
 
-                                            crosswordSolver.setvWord2Candidates(vWordPossiblesRefined3.get(0));
-                                            crosswordSolver.setvWord3Candidates(vWordPossiblesRefined3.get(1));
-                                            crosswordSolver.setvWord4Candidates(vWordPossiblesRefined3.get(2));
+                                            Map<Integer, Set<String>> vWordPossiblesRefined3 = wordPossibilitiesRefined3(crosswordSolverCandidateHWord4, candidateHWord1, candidateHWord2, candidateHWord3, candidateHWord4);
 
-                                            if (crosswordSolver.getvWord2Candidates().size() > 0 && crosswordSolver.getvWord3Candidates().size() > 0 && crosswordSolver.getvWord4Candidates().size() > 0)
+                                            crosswordSolverCandidateHWord4.setvWord2Candidates(vWordPossiblesRefined3.get(0));
+                                            crosswordSolverCandidateHWord4.setvWord3Candidates(vWordPossiblesRefined3.get(1));
+                                            crosswordSolverCandidateHWord4.setvWord4Candidates(vWordPossiblesRefined3.get(2));
+
+                                            if (crosswordSolverCandidateHWord4.isSolution())
                                             {
+                                                successCount++;
                                                 System.out.println("***************");
-                                                System.out.println("Success!");
-                                                System.out.println("vWord 1: " + candidateVWord1);
+                                                System.out.println("Success #" + successCount + "!");
                                                 System.out.println("hWord 1: " + candidateHWord1);
                                                 System.out.println("hWord 2: " + candidateHWord2);
                                                 System.out.println("hWord 3: " + candidateHWord3);
