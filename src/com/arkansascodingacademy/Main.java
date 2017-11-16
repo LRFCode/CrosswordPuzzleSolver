@@ -25,8 +25,6 @@ public class Main
 
         for (String candidateHWord1 : hWord1Candidates)
         {
-            candidateHWord1 = "DIGS";
-
             crosswordSolver.setvWord1Candidates(vWordPossibilities(hWord1Candidates, candidateHWord1, 0));
             crosswordSolver.setvWord2Candidates(vWordPossibilities(hWord1Candidates, candidateHWord1, 1));
             crosswordSolver.setvWord3Candidates(vWordPossibilities(hWord1Candidates, candidateHWord1, 2));
