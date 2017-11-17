@@ -83,7 +83,7 @@ public class CrosswordSolver implements Cloneable
         this.hWord4Candidates = hWord4Candidates;
     }
 
-    private Set<String> getvWord1Candidates()
+    Set<String> getvWord1Candidates()
     {
         return vWord1Candidates;
     }

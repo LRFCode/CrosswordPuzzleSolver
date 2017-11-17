@@ -26,6 +26,7 @@ public class Main
         //for (String candidateHWord1 : hWord1Candidates)
         {
             String candidateHWord1 = "DIGS";
+
             crosswordSolver.setvWord1Candidates(vWordPossibilities(hWord1Candidates, candidateHWord1, 0));
             crosswordSolver.setvWord2Candidates(vWordPossibilities(hWord1Candidates, candidateHWord1, 1));
             crosswordSolver.setvWord3Candidates(vWordPossibilities(hWord1Candidates, candidateHWord1, 2));
@@ -36,6 +37,7 @@ public class Main
                 //for (String candidateVWord1 : crosswordSolver.getvWord1Candidates())
                 {
                     String candidateVWord1 = "DEWS";
+
                     CrosswordSolver crosswordSolverCandidateVWord1 = crosswordSolver.clone();
 
                     crosswordSolverCandidateVWord1.sethWord2Candidates(hWordPossibilities(hWord1Candidates, candidateVWord1, 1));
@@ -44,11 +46,8 @@ public class Main
 
                     if (crosswordSolverCandidateVWord1.possibleSolution())
                     {
-                        //System.out.println("candidateHWord2 possibilities:" + crosswordSolverCandidateVWord1.gethWord2Candidates().size());
                         for (String candidateHWord2 : crosswordSolverCandidateVWord1.gethWord2Candidates())
                         {
-                            //String candidateHWord2 = "ERAT";
-                            //System.out.println("candidateHWord2:" + candidateHWord2);
                             CrosswordSolver crosswordSolverCandidateHWord2 = crosswordSolverCandidateVWord1.clone();
 
                             Map<Integer, Set<String>> vWordPossiblesRefined1 = wordPossibilitiesRefined(crosswordSolverCandidateHWord2, candidateHWord1, candidateHWord2);
@@ -61,7 +60,6 @@ public class Main
                             {
                                 for (String candidateHWord3 : crosswordSolverCandidateHWord2.gethWord3Candidates())
                                 {
-                                    //String candidateHWord3 = "WAGE";
                                     CrosswordSolver crosswordSolverCandidateHWord3 = crosswordSolverCandidateHWord2.clone();
 
                                     Map<Integer, Set<String>> vWordPossiblesRefined2 = wordPossibilitiesRefined(crosswordSolverCandidateHWord3, candidateHWord1, candidateHWord2, candidateHWord3);
@@ -74,7 +72,6 @@ public class Main
                                     {
                                         for (String candidateHWord4 : crosswordSolverCandidateHWord3.gethWord4Candidates())
                                         {
-                                            //String candidateHWord4 = "SNAP";
                                             CrosswordSolver crosswordSolverCandidateHWord4 = crosswordSolverCandidateHWord3.clone();
 
                                             Map<Integer, Set<String>> vWordPossiblesRefined3 = wordPossibilitiesRefined(crosswordSolverCandidateHWord4, candidateHWord1, candidateHWord2, candidateHWord3, candidateHWord4);
@@ -135,34 +132,17 @@ public class Main
         return hWordPossibilities;
     }
 
-    private static void refineWords(Map<Integer, Set<String>> map, List<Set<String>> vWordCandidates, int index, String vWords, String...candidateHWords)
+    private static void refineWords(Map<Integer, Set<String>> map, List<Set<String>> vWordCandidates, String...candidateHWords)
     {
-        for (String candidateVWord : vWordCandidates.get(index))
+        for(int i = 0; i < vWordCandidates.size(); i++)
         {
-            String searchVWord = searchWord(1, candidateHWords);
-
-            if (candidateVWord.substring(0, candidateHWords.length).equals(searchVWord))
+            for(String candidateVWord : vWordCandidates.get(i))
             {
-                if (index < vWordCandidates.size() - 1)
-                {
-                    if (vWords.length() > 0)
-                    {
-                        vWords += ",";
-                    }
+                String searchVWord = searchWord(i + 1, candidateHWords);
 
-                    vWords += candidateVWord;
-                    System.out.println(vWords);
-                    refineWords(map, vWordCandidates, index + 1, vWords);
-                }
-                else
+                if(candidateVWord.substring(0, candidateHWords.length).equals(searchVWord))
                 {
-                    String words[] = vWords.split(",");
-
-                    System.out.println(words.length);
-                    for (int i = 0; i < vWordCandidates.size(); i++)
-                    {
-                        map.get(i).add(words[i]);
-                    }
+                    map.get(i).add(candidateVWord);
                 }
             }
         }
@@ -172,44 +152,17 @@ public class Main
     {
         List<Set<String>> vWordCandidates = crosswordSolver.getVWordCandidates();
 
-        Map<Integer, Set<String>> map = new HashMap<>();
+        Map<Integer, Set<String>> vWordCandidatesMap = new HashMap<>();
 
         for (int i = 0; i < vWordCandidates.size(); i++)
         {
             Set<String> vWordPossibles = new HashSet<>();
-            map.put(i, vWordPossibles);
+            vWordCandidatesMap.put(i, vWordPossibles);
         }
 
-        //refineWords(map, vWordCandidates, 0, "", candidateHWords);
-        for (String candidateVWord2 : vWordCandidates.get(0))
-        {
-            String searchVWord2 = searchWord(1, candidateHWords);
+        refineWords(vWordCandidatesMap, vWordCandidates, candidateHWords);
 
-            if (candidateVWord2.substring(0, candidateHWords.length).equals(searchVWord2))
-            {
-                for (String candidateVWord3 :  vWordCandidates.get(1))
-                {
-                    String searchVWord3 = searchWord(2, candidateHWords);
-
-                    if (candidateVWord3.substring(0, candidateHWords.length).equals(searchVWord3))
-                    {
-                        for (String candidateVWord4 :  vWordCandidates.get(2))
-                        {
-                            String searchVWord4 = searchWord(3, candidateHWords);
-
-                            if (candidateVWord4.substring(0, candidateHWords.length).equals(searchVWord4))
-                            {
-                                map.get(0).add(candidateVWord2);
-                                map.get(1).add(candidateVWord3);
-                                map.get(2).add(candidateVWord4);
-                           }
-                        }
-                    }
-                }
-            }
-        }
-
-        return map;
+        return vWordCandidatesMap;
     }
 
     private static String searchWord(int characterPosition, String...candidateWords)
