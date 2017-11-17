@@ -1,126 +1,66 @@
 package com.arkansascodingacademy;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.File;
+import java.nio.file.Path;
+import java.util.*;
 
 public class CrosswordSolver implements Cloneable
 {
-    private Set<String> hWord1Candidates = new HashSet<>();
-    private Set<String> hWord2Candidates = new HashSet<>();
-    private Set<String> hWord3Candidates = new HashSet<>();
-    private Set<String> hWord4Candidates = new HashSet<>();
-    private Set<String> vWord1Candidates = new HashSet<>();
-    private Set<String> vWord2Candidates = new HashSet<>();
-    private Set<String> vWord3Candidates = new HashSet<>();
-    private Set<String> vWord4Candidates = new HashSet<>();
+    private Map<Integer, Set<String>> hWordMap = new HashMap<>();
+    private Map<Integer, Set<String>> vWordMap = new HashMap<>();
 
-    CrosswordSolver(Set<String> hWordSet, Set<String> vWordSet)
+    CrosswordSolver(int hLength, int vLength)
     {
-        hWord1Candidates = hWordSet;
-        hWord2Candidates = hWordSet;
-        hWord3Candidates = hWordSet;
-        hWord4Candidates = hWordSet;
-        vWord1Candidates = vWordSet;
-        vWord2Candidates = vWordSet;
-        vWord3Candidates = vWordSet;
-        vWord4Candidates = vWordSet;
-    }
+        Path filePath = new File("wordsEn.txt").toPath();
+        Dictionary dictionary = new Dictionary(filePath);
 
-    List<Set<String>> getVWordCandidates()
-    {
-        List list = new ArrayList();
+        Set<String> hWordSet = dictionary.getWordSet(hLength);
+        Set<String> vWordSet = dictionary.getWordSet(vLength);
 
-        list.add(vWord2Candidates);
-        list.add(vWord3Candidates);
-        list.add(vWord4Candidates);
+        for (int i = 0; i < hLength; i++)
+        {
+            hWordMap.put(i, hWordSet);
+        }
 
-        return list;
+        for (int i = 0; i < vLength; i++)
+        {
+            vWordMap.put(i, vWordSet);
+        }
     }
 
     private CrosswordSolver()
     {
     }
 
-    private void sethWord1Candidates(Set<String> hWord1Candidates)
+    public Map<Integer, Set<String>> gethWordMap()
     {
-        this.hWord1Candidates = hWord1Candidates;
+        return hWordMap;
     }
 
-    Set<String> gethWord1Candidates()
+    public void sethWordMap(Map<Integer, Set<String>> hWordMap)
     {
-        return hWord1Candidates;
+        this.hWordMap = hWordMap;
     }
 
-    Set<String> gethWord2Candidates()
+    public Map<Integer, Set<String>> getvWordMap()
     {
-        return hWord2Candidates;
+        return vWordMap;
     }
 
-    void sethWord2Candidates(Set<String> hWord2Candidates)
+    public void setvWordMap(Map<Integer, Set<String>> vWordMap)
     {
-        this.hWord2Candidates = hWord2Candidates;
+        this.vWordMap = vWordMap;
     }
 
-    Set<String> gethWord3Candidates()
+    List<Set<String>> getVWordCandidates()
     {
-        return hWord3Candidates;
-    }
+        List list = new ArrayList();
 
-    void sethWord3Candidates(Set<String> hWord3Candidates)
-    {
-        this.hWord3Candidates = hWord3Candidates;
-    }
+        list.add(vWordMap.get(1));
+        list.add(vWordMap.get(2));
+        list.add(vWordMap.get(3));
 
-    Set<String> gethWord4Candidates()
-    {
-        return hWord4Candidates;
-    }
-
-    void sethWord4Candidates(Set<String> hWord4Candidates)
-    {
-        this.hWord4Candidates = hWord4Candidates;
-    }
-
-    Set<String> getvWord1Candidates()
-    {
-        return vWord1Candidates;
-    }
-
-    void setvWord1Candidates(Set<String> vWord1Candidates)
-    {
-        this.vWord1Candidates = vWord1Candidates;
-    }
-
-    Set<String> getvWord2Candidates()
-    {
-        return vWord2Candidates;
-    }
-
-    void setvWord2Candidates(Set<String> vWord2Candidates)
-    {
-        this.vWord2Candidates = vWord2Candidates;
-    }
-
-    Set<String> getvWord3Candidates()
-    {
-        return vWord3Candidates;
-    }
-
-    void setvWord3Candidates(Set<String> vWord3Candidates)
-    {
-        this.vWord3Candidates = vWord3Candidates;
-    }
-
-    Set<String> getvWord4Candidates()
-    {
-        return vWord4Candidates;
-    }
-
-    void setvWord4Candidates(Set<String> vWord4Candidates)
-    {
-        this.vWord4Candidates = vWord4Candidates;
+        return list;
     }
 
     public CrosswordSolver clone()
@@ -128,42 +68,51 @@ public class CrosswordSolver implements Cloneable
         try
         {
             super.clone();
-        }
-        catch(Exception e)
+        } catch (Exception e)
         {
             //do nothing
         }
         CrosswordSolver crosswordSolver = new CrosswordSolver();
-        crosswordSolver.sethWord1Candidates(new HashSet<>(hWord1Candidates));
-        crosswordSolver.sethWord2Candidates(new HashSet<>(hWord2Candidates));
-        crosswordSolver.sethWord3Candidates(new HashSet<>(hWord3Candidates));
-        crosswordSolver.sethWord4Candidates(new HashSet<>(hWord4Candidates));
-        crosswordSolver.setvWord1Candidates(new HashSet<>(vWord1Candidates));
-        crosswordSolver.setvWord2Candidates(new HashSet<>(vWord2Candidates));
-        crosswordSolver.setvWord3Candidates(new HashSet<>(vWord3Candidates));
-        crosswordSolver.setvWord4Candidates(new HashSet<>(vWord4Candidates));
+        crosswordSolver.sethWordMap(new HashMap<>(hWordMap));
+        crosswordSolver.setvWordMap(new HashMap<>(vWordMap));
 
         return crosswordSolver;
     }
 
     boolean possibleSolution()
     {
-        return
-               gethWord2Candidates().size() > 0 &&
-               gethWord3Candidates().size() > 0 &&
-               gethWord4Candidates().size() > 0 &&
-               getvWord1Candidates().size() > 0 &&
-               getvWord2Candidates().size() > 0 &&
-               getvWord3Candidates().size() > 0 &&
-               getvWord4Candidates().size() > 0;
+        boolean x = true;
+
+        for (int i = 0; i < hWordMap.size(); i++)
+        {
+            if (hWordMap.get(i).size() < 1)
+            {
+                x = false;
+            }
+        }
+        for (int i = 0; i < vWordMap.size(); i++)
+        {
+            if (vWordMap.get(i).size() < 1)
+            {
+                x = false;
+            }
+        }
+
+        return x;
     }
 
     boolean isSolution()
     {
-        return
-                        getvWord2Candidates().size() == 1 &&
-                        getvWord3Candidates().size() == 1 &&
-                        getvWord4Candidates().size() == 1;
-    }
+        boolean x = true;
 
+        for (int i = 1; i < vWordMap.size(); i++)
+        {
+            if (vWordMap.get(i).size() != 1)
+            {
+                x = false;
+            }
+        }
+
+        return x;
+    }
 }
