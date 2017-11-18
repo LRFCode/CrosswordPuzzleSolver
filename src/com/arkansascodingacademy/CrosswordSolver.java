@@ -6,6 +6,8 @@ import java.util.*;
 
 public class CrosswordSolver implements Cloneable
 {
+    private List<String> hWordCandidates = new ArrayList<>();
+    private List<String> vWordCandidates = new ArrayList<>();
     private Map<Integer, Set<String>> hWordMap = new HashMap<>();
     private Map<Integer, Set<String>> vWordMap = new HashMap<>();
 
@@ -17,12 +19,12 @@ public class CrosswordSolver implements Cloneable
         Set<String> hWordSet = dictionary.getWordSet(hLength);
         Set<String> vWordSet = dictionary.getWordSet(vLength);
 
-        for (int i = 0; i < hLength; i++)
+        for (int i = 0; i < vLength; i++)
         {
             hWordMap.put(i, hWordSet);
         }
 
-        for (int i = 0; i < vLength; i++)
+        for (int i = 0; i < hLength; i++)
         {
             vWordMap.put(i, vWordSet);
         }
@@ -75,6 +77,8 @@ public class CrosswordSolver implements Cloneable
         CrosswordSolver crosswordSolver = new CrosswordSolver();
         crosswordSolver.sethWordMap(new HashMap<>(hWordMap));
         crosswordSolver.setvWordMap(new HashMap<>(vWordMap));
+        crosswordSolver.sethWordCandidates(new ArrayList<>(hWordCandidates));
+        crosswordSolver.setvWordCandidates(new ArrayList<>(vWordCandidates));
 
         return crosswordSolver;
     }
@@ -115,4 +119,44 @@ public class CrosswordSolver implements Cloneable
 
         return x;
     }
+
+    public void addhWordCandidate(String candidateHWord)
+    {
+        hWordCandidates.add(candidateHWord);
+    }
+
+    public void addvWordCandidate(String candidateVWord)
+    {
+        vWordCandidates.add(candidateVWord);
+    }
+
+    public void setSingleSetVWord(int index, String candidateVWord)
+    {
+        Set<String> set = new HashSet<>();
+
+        set.add(candidateVWord);
+
+        vWordMap.put(index,set);
+    }
+
+    List<String> gethWordCandidates()
+    {
+        return hWordCandidates;
+    }
+
+    List<String> getvWordCandidates()
+    {
+        return vWordCandidates;
+    }
+
+    public void sethWordCandidates(List<String> hWordCandidates)
+    {
+        this.hWordCandidates = hWordCandidates;
+    }
+
+    public void setvWordCandidates(List<String> vWordCandidates)
+    {
+        this.vWordCandidates = vWordCandidates;
+    }
 }
+
