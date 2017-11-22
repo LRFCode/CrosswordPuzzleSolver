@@ -3,6 +3,7 @@ package com.arkansascodingacademy;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CrosswordSolver implements Cloneable
 {
@@ -85,39 +86,28 @@ public class CrosswordSolver implements Cloneable
 
     boolean possibleSolution()
     {
-        boolean x = true;
-
-        for (int i = 0; i < hWordMap.size(); i++)
-        {
-            if (hWordMap.get(i).size() < 1)
-            {
-                x = false;
-            }
-        }
         for (int i = 0; i < vWordMap.size(); i++)
         {
             if (vWordMap.get(i).size() < 1)
             {
-                x = false;
+                return false;
             }
         }
 
-        return x;
+        return true;
     }
 
     boolean isSolution()
     {
-        boolean x = true;
-
         for (int i = 1; i < vWordMap.size(); i++)
         {
             if (vWordMap.get(i).size() != 1)
             {
-                x = false;
+                return false;
             }
         }
 
-        return x;
+        return true;
     }
 
     public void addhWordCandidate(String candidateHWord)
@@ -128,15 +118,6 @@ public class CrosswordSolver implements Cloneable
     public void addvWordCandidate(String candidateVWord)
     {
         vWordCandidates.add(candidateVWord);
-    }
-
-    public void setSingleSetVWord(int index, String candidateVWord)
-    {
-        Set<String> set = new HashSet<>();
-
-        set.add(candidateVWord);
-
-        vWordMap.put(index,set);
     }
 
     List<String> gethWordCandidates()
@@ -157,6 +138,11 @@ public class CrosswordSolver implements Cloneable
     public void setvWordCandidates(List<String> vWordCandidates)
     {
         this.vWordCandidates = vWordCandidates;
+    }
+
+    public void removeFromSet (int index, String word)
+    {
+        hWordMap.get(index).remove(word);
     }
 }
 

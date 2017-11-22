@@ -4,17 +4,19 @@ import java.util.*;
 
 public class Main
 {
+    private static int count = 0;
 
     public static void main(String[] args)
     {
-        int hLength = 4;
-        int vLength = 4;
+        int hLength = 2;
+        int vLength = 8;
         int successCount = 0;
 
         CrosswordSolver crosswordSolver = new CrosswordSolver(hLength, vLength);
 
         for (String candidateHWord1 : crosswordSolver.gethWordMap().get(0))
         {
+
             CrosswordSolver crosswordSolverCandidateHWord1 = crosswordSolver.clone();
             crosswordSolverCandidateHWord1.addhWordCandidate(candidateHWord1);
             refineVWords(crosswordSolverCandidateHWord1);
@@ -23,52 +25,46 @@ public class Main
             {
                 for (String candidateVWord1 : crosswordSolverCandidateHWord1.getvWordMap().get(0))
                 {
-
                     CrosswordSolver crosswordSolverCandidateVWord1 = crosswordSolverCandidateHWord1.clone();
                     crosswordSolverCandidateVWord1.addvWordCandidate(candidateVWord1);
                     refineHWords(crosswordSolverCandidateVWord1);
 
                     if (crosswordSolverCandidateVWord1.possibleSolution())
                     {
-                        for (String candidateHWord2 : crosswordSolverCandidateVWord1.gethWordMap().get(1))
-                        {
-                            CrosswordSolver crosswordSolverCandidateHWord2 = crosswordSolverCandidateVWord1.clone();
-                            crosswordSolverCandidateHWord2.addhWordCandidate(candidateHWord2);
-                            refineWords(crosswordSolverCandidateHWord2);
-
-                            if (crosswordSolverCandidateHWord2.possibleSolution())
-                            {
-                                for (String candidateHWord3 : crosswordSolverCandidateHWord2.gethWordMap().get(2))
-                                {
-                                    CrosswordSolver crosswordSolverCandidateHWord3 = crosswordSolverCandidateHWord2.clone();
-                                    crosswordSolverCandidateHWord3.addhWordCandidate(candidateHWord3);
-                                    refineWords(crosswordSolverCandidateHWord3);
-
-                                    if (crosswordSolverCandidateHWord3.possibleSolution())
-                                    {
-                                        for (String candidateHWord4 : crosswordSolverCandidateHWord3.gethWordMap().get(3))
-                                        {
-                                            CrosswordSolver crosswordSolverCandidateHWord4 = crosswordSolverCandidateHWord3.clone();
-                                            crosswordSolverCandidateHWord4.addhWordCandidate(candidateHWord4);
-                                            refineWords(crosswordSolverCandidateHWord4);
-
-                                            if (crosswordSolverCandidateHWord4.isSolution())
-                                            {
-                                                successCount++;
-
-                                                System.out.println("Solution #" + successCount);
-                                                for(String hWord : crosswordSolverCandidateHWord4.gethWordCandidates())
-                                                {
-                                                    System.out.println(hWord);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        refineHWordsFurther(crosswordSolverCandidateVWord1, 1, vLength);
                     }
+                }
+            }
+        }
+    }
 
+    private static void refineHWordsFurther(CrosswordSolver crosswordSolver, int index, int vLength)
+    {
+        for (String candidateHWord : crosswordSolver.gethWordMap().get(index))
+        {
+            CrosswordSolver crosswordSolverClone = crosswordSolver.clone();
+            crosswordSolverClone.addhWordCandidate(candidateHWord);
+            refineVWordsFurther(crosswordSolverClone);
+
+            if (index + 1 == vLength)
+            {
+                if (crosswordSolverClone.possibleSolution())
+                {
+                    count++;
+                    System.out.println("Success! #" + count);
+                    for (String finalHWord : crosswordSolverClone.gethWordCandidates())
+                    {
+                        System.out.println(finalHWord);
+                    }
+                    System.out.println("***********************");
+
+                }
+            }
+            else
+            {
+                if (crosswordSolverClone.possibleSolution())
+                {
+                    refineHWordsFurther(crosswordSolverClone, index + 1, vLength);
                 }
             }
         }
@@ -114,7 +110,7 @@ public class Main
         }
     }
 
-    private static void refineWords(CrosswordSolver crosswordSolver)
+    private static void refineVWordsFurther(CrosswordSolver crosswordSolver)
     {
         List<String> candidateHWords = crosswordSolver.gethWordCandidates();
 
