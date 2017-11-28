@@ -3,7 +3,6 @@ package com.arkansascodingacademy;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class CrosswordSolver implements Cloneable
 {
@@ -11,6 +10,8 @@ public class CrosswordSolver implements Cloneable
     private List<String> vWordCandidates = new ArrayList<>();
     private Map<Integer, Set<String>> hWordMap = new HashMap<>();
     private Map<Integer, Set<String>> vWordMap = new HashMap<>();
+    private Map<Integer, List<Set<String>>> hRow = new HashMap<>();
+    private Map<Integer, List<Set<String>>> vRow = new HashMap<>();
 
     CrosswordSolver(int hLength, int vLength)
     {
@@ -31,39 +32,28 @@ public class CrosswordSolver implements Cloneable
         }
     }
 
-    private CrosswordSolver()
+    CrosswordSolver()
     {
     }
 
-    public Map<Integer, Set<String>> gethWordMap()
+    Map<Integer, Set<String>> gethWordMap()
     {
         return hWordMap;
     }
 
-    public void sethWordMap(Map<Integer, Set<String>> hWordMap)
+    private void sethWordMap(Map<Integer, Set<String>> hWordMap)
     {
         this.hWordMap = hWordMap;
     }
 
-    public Map<Integer, Set<String>> getvWordMap()
+    Map<Integer, Set<String>> getvWordMap()
     {
         return vWordMap;
     }
 
-    public void setvWordMap(Map<Integer, Set<String>> vWordMap)
+    private void setvWordMap(Map<Integer, Set<String>> vWordMap)
     {
         this.vWordMap = vWordMap;
-    }
-
-    List<Set<String>> getVWordCandidates()
-    {
-        List list = new ArrayList();
-
-        list.add(vWordMap.get(1));
-        list.add(vWordMap.get(2));
-        list.add(vWordMap.get(3));
-
-        return list;
     }
 
     public CrosswordSolver clone()
@@ -80,12 +70,21 @@ public class CrosswordSolver implements Cloneable
         crosswordSolver.setvWordMap(new HashMap<>(vWordMap));
         crosswordSolver.sethWordCandidates(new ArrayList<>(hWordCandidates));
         crosswordSolver.setvWordCandidates(new ArrayList<>(vWordCandidates));
+        crosswordSolver.sethRow(new HashMap<>(hRow));
+        crosswordSolver.setvRow(new HashMap<>(vRow));
 
         return crosswordSolver;
     }
 
     boolean possibleSolution()
     {
+        for (int i = 0; i < hWordMap.size(); i++)
+        {
+            if (hWordMap.get(i).size() < 1)
+            {
+                return false;
+            }
+        }
         for (int i = 0; i < vWordMap.size(); i++)
         {
             if (vWordMap.get(i).size() < 1)
@@ -110,12 +109,12 @@ public class CrosswordSolver implements Cloneable
         return true;
     }
 
-    public void addhWordCandidate(String candidateHWord)
+    void addhWordCandidate(String candidateHWord)
     {
         hWordCandidates.add(candidateHWord);
     }
 
-    public void addvWordCandidate(String candidateVWord)
+    void addvWordCandidate(String candidateVWord)
     {
         vWordCandidates.add(candidateVWord);
     }
@@ -130,19 +129,65 @@ public class CrosswordSolver implements Cloneable
         return vWordCandidates;
     }
 
-    public void sethWordCandidates(List<String> hWordCandidates)
+    private void sethWordCandidates(List<String> hWordCandidates)
     {
         this.hWordCandidates = hWordCandidates;
     }
 
-    public void setvWordCandidates(List<String> vWordCandidates)
+    private void setvWordCandidates(List<String> vWordCandidates)
     {
         this.vWordCandidates = vWordCandidates;
     }
 
-    public void removeFromSet (int index, String word)
+    void addHWordRow(int rowNumber, int...hLengths)
     {
-        hWordMap.get(index).remove(word);
+        List<Set<String>> hRowWordSets = new ArrayList<>();
+
+        Path filePath = new File("wordsEn.txt").toPath();
+        Dictionary dictionary = new Dictionary(filePath);
+
+        for(int hLength : hLengths)
+        {
+            Set<String> hWordSet = dictionary.getWordSet(hLength);
+            hRowWordSets.add(hWordSet);
+        }
+
+        hRow.put(rowNumber, hRowWordSets);
+    }
+
+    public Map<Integer, List<Set<String>>> gethRow()
+    {
+        return hRow;
+    }
+
+    public void sethRow(Map<Integer, List<Set<String>>> hRow)
+    {
+        this.hRow = hRow;
+    }
+
+    void addvWordRow(int rowNumber, int...vLengths)
+    {
+        List<Set<String>> vRowWordSets = new ArrayList<>();
+
+        for(int vLength : vLengths)
+        {
+            Path filePath = new File("wordsEn.txt").toPath();
+            Dictionary dictionary = new Dictionary(filePath);
+
+            Set<String> hWordSet = dictionary.getWordSet(vLength);
+            vRowWordSets.add(hWordSet);
+        }
+
+        vRow.put(rowNumber, vRowWordSets);
+    }
+
+    public Map<Integer, List<Set<String>>> getvRow()
+    {
+        return vRow;
+    }
+
+    public void setvRow(Map<Integer, List<Set<String>>> vRow)
+    {
+        this.vRow = vRow;
     }
 }
-

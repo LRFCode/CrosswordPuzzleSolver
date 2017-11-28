@@ -60,5 +60,13 @@ public class Dictionary
         return sb.toString();
     }
 
+    public Map<Integer, Set<String>> getWordMap()
+    {
+        return wordMap;
+    }
 
+    public void setWordMap(Map<Integer, Set<String>> wordMap)
+    {
+        this.wordMap = wordMap;
+    }
 }
