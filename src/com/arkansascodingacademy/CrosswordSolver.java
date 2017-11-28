@@ -6,10 +6,12 @@ import java.util.*;
 
 public class CrosswordSolver implements Cloneable
 {
-    private List<String> hWordCandidates = new ArrayList<>();
-    private List<String> vWordCandidates = new ArrayList<>();
     private Map<Integer, Set<String>> hWordMap = new HashMap<>();
     private Map<Integer, Set<String>> vWordMap = new HashMap<>();
+
+    private List<String> hWordCandidates = new ArrayList<>();
+    private List<String> vWordCandidates = new ArrayList<>();
+
     private Map<Integer, List<Set<String>>> hRow = new HashMap<>();
     private Map<Integer, List<Set<String>>> vRow = new HashMap<>();
 

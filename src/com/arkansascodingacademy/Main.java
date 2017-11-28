@@ -10,7 +10,7 @@ public class Main
 
     public static void main(String[] args)
     {
-        Path filePath = new File("wordsEn.txt").toPath();
+        /*Path filePath = new File("wordsEn.txt").toPath();
         Dictionary dictionary = new Dictionary(filePath);
 
         Set<String> hWordSet3 = dictionary.getWordSet(3);
@@ -246,11 +246,16 @@ public class Main
                 }
             }
         }
+        */
+
+       CrosswordSolver cs = new CrosswordSolver(15,2);
+       refineHAndVWords(cs, 2);
     }
 
     private static void refineHAndVWords(CrosswordSolver crosswordSolver, int vLength)
     {
         for (String candidateHWord1 : crosswordSolver.gethWordMap().get(0))
+        //String candidateHWord1 = "SPOTS";
         {
             CrosswordSolver crosswordSolverCandidateHWord1 = crosswordSolver.clone();
             crosswordSolverCandidateHWord1.addhWordCandidate(candidateHWord1);
