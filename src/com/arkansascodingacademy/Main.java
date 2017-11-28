@@ -248,14 +248,14 @@ public class Main
         }
         */
 
-       CrosswordSolver cs = new CrosswordSolver(15,2);
-       refineHAndVWords(cs, 2);
+       CrosswordSolver cs = new CrosswordSolver(4,4);
+       refineHAndVWords(cs, 4);
     }
 
     private static void refineHAndVWords(CrosswordSolver crosswordSolver, int vLength)
     {
-        for (String candidateHWord1 : crosswordSolver.gethWordMap().get(0))
-        //String candidateHWord1 = "SPOTS";
+        //for (String candidateHWord1 : crosswordSolver.gethWordMap().get(0))
+        String candidateHWord1 = "DIGS";
         {
             CrosswordSolver crosswordSolverCandidateHWord1 = crosswordSolver.clone();
             crosswordSolverCandidateHWord1.addhWordCandidate(candidateHWord1);
