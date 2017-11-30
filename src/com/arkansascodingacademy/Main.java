@@ -6,45 +6,41 @@ public class Main
 {
     public static void main(String[] args)
     {
-        /*
         CrosswordSolver crosswordSolver = new CrosswordSolver();
 
-        crosswordSolver.addHWordMapCandidates(new int[]{4, -1, 4, -1, 5});
-        crosswordSolver.addHWordMapCandidates(new int[]{4, -1, 4, -1, 5});
-        crosswordSolver.addHWordMapCandidates(new int[]{9, -1, 5});
-        crosswordSolver.addHWordMapCandidates(new int[]{6, -1, 4, -1, 3});
-        crosswordSolver.addHWordMapCandidates(new int[]{-3, 4, -2, 4, -2});
-        crosswordSolver.addHWordMapCandidates(new int[]{3, -1, 11});
-        crosswordSolver.addHWordMapCandidates(new int[]{5, -1, 4, -1, 4});
-        crosswordSolver.addHWordMapCandidates(new int[]{4, -1, 5, -1, 4});
-        crosswordSolver.addHWordMapCandidates(new int[]{4, -1, 4, -1, 5});
-        crosswordSolver.addHWordMapCandidates(new int[]{11, -1, 3});
-        crosswordSolver.addHWordMapCandidates(new int[]{-2, 4, -2, 4, 3});
-        crosswordSolver.addHWordMapCandidates(new int[]{3, -1, 4, -1, 6});
-        crosswordSolver.addHWordMapCandidates(new int[]{5, -1, 9});
-        crosswordSolver.addHWordMapCandidates(new int[]{5, -1, 4, -1, 4});
-        crosswordSolver.addHWordMapCandidates(new int[]{5, -1, 4, -1, 4});
+        crosswordSolver.addHWordMapPattern(0, new int[]{4, -1, 4, -1, 5});
+        crosswordSolver.addHWordMapPattern(1, new int[]{4, -1, 4, -1, 5});
+        crosswordSolver.addHWordMapPattern(2, new int[]{9, -1, 5});
+        crosswordSolver.addHWordMapPattern(3, new int[]{6, -1, 4, -1, 3});
+        crosswordSolver.addHWordMapPattern(4, new int[]{-3, 4, -2, 4, -2});
+        crosswordSolver.addHWordMapPattern(5, new int[]{3, -1, 11});
+        crosswordSolver.addHWordMapPattern(6, new int[]{5, -1, 4, -1, 4});
+        crosswordSolver.addHWordMapPattern(7, new int[]{4, -1, 5, -1, 4});
+        crosswordSolver.addHWordMapPattern(8, new int[]{4, -1, 4, -1, 5});
+        crosswordSolver.addHWordMapPattern(9, new int[]{11, -1, 3});
+        crosswordSolver.addHWordMapPattern(10, new int[]{-2, 4, -2, 4, -3});
+        crosswordSolver.addHWordMapPattern(11, new int[]{3, -1, 4, -1, 6});
+        crosswordSolver.addHWordMapPattern(12, new int[]{5, -1, 9});
+        crosswordSolver.addHWordMapPattern(13, new int[]{5, -1, 4, -1, 4});
+        crosswordSolver.addHWordMapPattern(14, new int[]{5, -1, 4, -1, 4});
 
-        crosswordSolver.addVWordMapCandidates(new int[]{4, -1, 5, -1, 4});
-        crosswordSolver.addVWordMapCandidates(new int[]{4, -1, 5, -1, 4});
-        crosswordSolver.addVWordMapCandidates(new int[]{4, -1, 10});
-        crosswordSolver.addVWordMapCandidates(new int[]{5, -1, 5, -1, 3});
-        crosswordSolver.addVWordMapCandidates(new int[]{-2, 5, -2, 6});
-        crosswordSolver.addVWordMapCandidates(new int[]{6, -1, 5, -3});
-        crosswordSolver.addVWordMapCandidates(new int[]{3, -1, 6, -1, 4});
-        crosswordSolver.addVWordMapCandidates(new int[]{4, -1, 5, -1, 4});
-        crosswordSolver.addVWordMapCandidates(new int[]{4, -1, 6, -1, 3});
-        crosswordSolver.addVWordMapCandidates(new int[]{-3, 5, -1, 6});
-        crosswordSolver.addVWordMapCandidates(new int[]{6, -2, 5, -2});
-        crosswordSolver.addVWordMapCandidates(new int[]{3, -1, 5, -1, 5});
-        crosswordSolver.addVWordMapCandidates(new int[]{10, -1, 4});
-        crosswordSolver.addVWordMapCandidates(new int[]{4, -1, 5, -1, 4});
-        crosswordSolver.addVWordMapCandidates(new int[]{4, -1, 5, -1, 4});
-        */
+        crosswordSolver.addVWordMapPattern(0, new int[]{4, -1, 5, -1, 4});
+        crosswordSolver.addVWordMapPattern(1, new int[]{4, -1, 5, -1, 4});
+        crosswordSolver.addVWordMapPattern(2, new int[]{4, -1, 10});
+        crosswordSolver.addVWordMapPattern(3, new int[]{5, -1, 5, -1, 3});
+        crosswordSolver.addVWordMapPattern(4, new int[]{-2, 5, -2, 6});
+        crosswordSolver.addVWordMapPattern(5, new int[]{6, -1, 5, -3});
+        crosswordSolver.addVWordMapPattern(6, new int[]{3, -1, 6, -1, 4});
+        crosswordSolver.addVWordMapPattern(7, new int[]{4, -1, 5, -1, 4});
+        crosswordSolver.addVWordMapPattern(8, new int[]{4, -1, 6, -1, 3});
+        crosswordSolver.addVWordMapPattern(9, new int[]{-3, 5, -1, 6});
+        crosswordSolver.addVWordMapPattern(10, new int[]{6, -2, 5, -2});
+        crosswordSolver.addVWordMapPattern(11, new int[]{3, -1, 5, -1, 5});
+        crosswordSolver.addVWordMapPattern(12, new int[]{10, -1, 4});
+        crosswordSolver.addVWordMapPattern(13, new int[]{4, -1, 5, -1, 4});
+        crosswordSolver.addVWordMapPattern(14, new int[]{4, -1, 5, -1, 4});
 
-        CrosswordSolver crosswordSolver = new CrosswordSolver();
-
-        crosswordSolver.addHWordMapCandidates1(new int[]{4, -1, 4, -1, 5});
+        crosswordSolver.addHWordMapCandidates1(crosswordSolver.gethWordMapPattern().get(0));
 
         //for(String candidateHWord1 : crosswordSolver.gethWordMap().get(0))
         {
@@ -52,52 +48,26 @@ public class Main
 
             CrosswordSolver crosswordSolverCandidateHWord1 = crosswordSolver.clone();
             crosswordSolverCandidateHWord1.addhWordCandidate(candidateHWord1);
-
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{4, -1, 5, -1, 4});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{4, -1, 5, -1, 4});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{4, -1, 10});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{5, -1, 5, -1, 3});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{-2, 5, -2, 6});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{6, -1, 5, -3});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{3, -1, 6, -1, 4});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{4, -1, 5, -1, 4});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{4, -1, 6, -1, 3});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{-3, 5, -1, 6});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{6, -2, 5, -2});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{3, -1, 5, -1, 5});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{10, -1, 4});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{4, -1, 5, -1, 4});
-            crosswordSolverCandidateHWord1.addVWordMapCandidates1(new int[]{4, -1, 5, -1, 4});
+            addVWordMapCandidates(crosswordSolverCandidateHWord1);
             refineVWords1(crosswordSolverCandidateHWord1);
 
-            //for(String candidateVWord1 : crosswordSolverCandidateHWord1.getvWordMap().get(0))
+            for (String candidateVWord1 : crosswordSolverCandidateHWord1.getvWordMap().get(0))
             {
-                String candidateVWord1 = "JAWS AFLAC FAST";
+                //String candidateVWord1 = "JAWS AFLAC FAST";
 
                 CrosswordSolver crosswordSolverCandidateVWord1 = crosswordSolverCandidateHWord1.clone();
                 crosswordSolverCandidateVWord1.addvWordCandidate(candidateVWord1);
-
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{4, -1, 4, -1, 5});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{9, -1, 5});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{6, -1, 4, -1, 3});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{-3, 4, -2, 4, -2});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{3, -1, 11});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{5, -1, 4, -1, 4});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{4, -1, 5, -1, 4});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{4, -1, 4, -1, 5});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{11, -1, 3});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{-2, 4, -2, 4, -3});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{3, -1, 4, -1, 6});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{5, -1, 9});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{5, -1, 4, -1, 4});
-                crosswordSolverCandidateVWord1.addHWordMapCandidates1(new int[]{5, -1, 4, -1, 4});
+                addHWordMapCandidates(crosswordSolverCandidateVWord1);
                 refineHWords1(crosswordSolverCandidateVWord1);
 
                 if (crosswordSolverCandidateVWord1.possibleSolution())
                 {
-                    CrosswordSolver crosswordSolverClone = crosswordSolverCandidateVWord1.clone();
-                    refineHWordFurther1(crosswordSolverClone, 1);
-                    refineHWordsFurther(crosswordSolverClone, 1, 15);
+                    refineHWordFurther1(crosswordSolverCandidateVWord1, 1);
+
+                    if (crosswordSolverCandidateVWord1.possibleSolution())
+                    {
+                        refineHWordsFurther(crosswordSolverCandidateVWord1, 1, 15);
+                    }
                 }
             }
         }
@@ -193,17 +163,29 @@ public class Main
         if (index < (crosswordSolver.gethWordMap().size() - 1) / 2)
         {
             refineVWordsFurther1(crosswordSolver);
-            removeRedundantHWords(crosswordSolver);
 
-            if (crosswordSolver.isSolution())
+            if (crosswordSolver.possibleSolution())
             {
-                System.out.println("Success!");
-            }
-            else if (crosswordSolver.possibleSolution())
-            {
+                removeRedundantHWords(crosswordSolver);
                 index++;
                 refineHWordFurther1(crosswordSolver, index);
             }
+        }
+    }
+
+    private static void addVWordMapCandidates(CrosswordSolver crosswordSolver)
+    {
+        for (int i = 0; i < crosswordSolver.getvWordMapPattern().size(); i++)
+        {
+            crosswordSolver.addVWordMapCandidates1(crosswordSolver.getvWordMapPattern().get(i));
+        }
+    }
+
+    private static void addHWordMapCandidates(CrosswordSolver crosswordSolver)
+    {
+        for (int i = 1; i < crosswordSolver.gethWordMapPattern().size(); i++)
+        {
+            crosswordSolver.addHWordMapCandidates1(crosswordSolver.gethWordMapPattern().get(i));
         }
     }
 
@@ -216,6 +198,60 @@ public class Main
             List<String[]> wordPartsList = new ArrayList<>();
 
             for (String word : crosswordSolver.getvWordMap().get(i))
+            {
+                String[] wordParts = word.trim().split("\\s+");
+                wordPartsList.add(wordParts);
+            }
+
+            for (String wordPart : wordPartsList.get(0))
+            {
+                int count = 0;
+
+                for (int j = 1; j < wordPartsList.size(); j++)
+                {
+                    List<String> list = Arrays.asList(wordPartsList.get(j));
+
+                    if (list.contains(wordPart))
+                    {
+                        count++;
+                    }
+                }
+
+                if (count == wordPartsList.size() - 1)
+                {
+                    wordsToRemove.add(wordPart);
+                }
+            }
+        }
+
+        for (String wordInUse : wordsToRemove)
+        {
+            for (int i = 1; i < crosswordSolver.gethWordMap().size(); i++)
+            {
+                Set<String> wordSet = new HashSet<>();
+
+                for (String word : crosswordSolver.gethWordMap().get(i))
+                {
+                    if (!word.contains(wordInUse))
+                    {
+                        wordSet.add(word);
+                    }
+                }
+
+                crosswordSolver.gethWordMap().put(i, wordSet);
+            }
+        }
+    }
+
+    private static void removeRedundantHWords2(CrosswordSolver crosswordSolver)
+    {
+        List<String> wordsToRemove = new ArrayList<>();
+
+        for (int i = 0; i < crosswordSolver.gethWordMap().size(); i++)
+        {
+            List<String[]> wordPartsList = new ArrayList<>();
+
+            for (String word : crosswordSolver.gethWordMap().get(i))
             {
                 String[] wordParts = word.trim().split("\\s+");
                 wordPartsList.add(wordParts);
@@ -480,4 +516,17 @@ public class Main
                         }
                     }
                 }
+ */
+/*
+List<Set<String>> hWordCandidatesByRow = new ArrayList<>();
+
+        for (String hWord : crosswordSolver.gethWordMap().get(0))
+        {
+            String[] words = hWord.trim().split("\\s+");
+
+            for (String word : words)
+            {
+
+            }
+        }
  */

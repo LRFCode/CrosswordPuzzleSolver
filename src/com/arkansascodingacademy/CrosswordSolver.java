@@ -181,7 +181,7 @@ public class CrosswordSolver implements Cloneable
         return wordList;
     }
 
-    public Set<String> splitHWordCandidates()
+    private Set<String> splitHWordCandidates()
     {
         Set<String> wordsInUse = new HashSet<>();
 
@@ -189,19 +189,13 @@ public class CrosswordSolver implements Cloneable
         {
             String[] words = word.trim().split("\\s+");
 
-            for (String word1 : words)
-            {
-                wordsInUse.add(word1);
-            }
+            wordsInUse.addAll(Arrays.asList(words));
         }
         for (String word : vWordCandidates)
         {
             String[] words = word.trim().split("\\s+");
 
-            for (String word1 : words)
-            {
-                wordsInUse.add(word1);
-            }
+            wordsInUse.addAll(Arrays.asList(words));
         }
 
         return wordsInUse;
@@ -245,7 +239,7 @@ public class CrosswordSolver implements Cloneable
         }
     }
 
-    public Set<String> wordCombine(List<Set<String>> wordList, Set<String> wordCombos, String wordSoFar, int index)
+    private Set<String> wordCombine(List<Set<String>> wordList, Set<String> wordCombos, String wordSoFar, int index)
     {
         for (String word : wordList.get(index))
         {
@@ -292,11 +286,19 @@ public class CrosswordSolver implements Cloneable
             //do nothing
         }
         CrosswordSolver crosswordSolver = new CrosswordSolver();
+
         crosswordSolver.sethWordMap(new HashMap<>(hWordMap));
         crosswordSolver.setvWordMap(new HashMap<>(vWordMap));
+
         crosswordSolver.sethWordCandidates(new ArrayList<>(hWordCandidates));
         crosswordSolver.setvWordCandidates(new ArrayList<>(vWordCandidates));
+
         crosswordSolver.setIndexesUsed(new ArrayList<>(indexesUsed));
+
+        crosswordSolver.setDictionary(new Dictionary(new File("wordsOne.txt").toPath()));
+
+        crosswordSolver.setvWordMapPattern(new HashMap<>(vWordMapPattern));
+        crosswordSolver.sethWordMapPattern(new HashMap<>(hWordMapPattern));
 
         return crosswordSolver;
     }
@@ -374,6 +376,11 @@ public class CrosswordSolver implements Cloneable
         this.hWordMapPattern = hWordMapPattern;
     }
 
+    public void addHWordMapPattern(int row, int[] pattern)
+    {
+        hWordMapPattern.put(row,pattern);
+    }
+
     public Map<Integer, int[]> getvWordMapPattern()
     {
         return vWordMapPattern;
@@ -382,6 +389,11 @@ public class CrosswordSolver implements Cloneable
     public void setvWordMapPattern(Map<Integer, int[]> vWordMapPattern)
     {
         this.vWordMapPattern = vWordMapPattern;
+    }
+
+    public void addVWordMapPattern(int row, int[] pattern)
+    {
+        vWordMapPattern.put(row,pattern);
     }
 
     public List<Integer> getIndexesUsed()
